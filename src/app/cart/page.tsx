@@ -64,8 +64,10 @@ export default function CartPage() {
   const [notes, setNotes] = useState("");
   const [isPlacing, setIsPlacing] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     setIsOpen(isOrderSlotOpen(ORDER_SLOT.start, ORDER_SLOT.end));
     
     // Check every minute
