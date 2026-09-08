@@ -116,28 +116,23 @@ export default function CartPage() {
           })
           .join("\n");
 
-        return `🏪 *${vendor.name}*\n${itemsList}\n_Subtotal: ₹${vendorSubtotal}_`;
+        return `*${vendor.name}*\n${itemsList}\n_Subtotal: ₹${vendorSubtotal}_`;
       })
-      .join("\n\n────────────────────\n\n");
+      .join("\n\n");
 
     const message = `Hello Ryello! Here is my order:
 
-• *Name:* ${name.trim()}
-• *Phone:* ${phone.trim()}
-• *Address:* ${hostel}, Room ${roomNumber.trim()}${notes.trim() ? `\n• *Special Instructions:* ${notes.trim()}` : ""}
+*Name:* ${name.trim()}
+*Phone:* ${phone.trim()}
+*Address:* ${hostel}, Room ${roomNumber.trim()}${notes.trim() ? `\n*Special Instructions:* ${notes.trim()}` : ""}
 
-━━━━━━━━━━━━━━━━━━━━
-🍽️ *ORDER DETAILS (BY RESTAURANT)*
-━━━━━━━━━━━━━━━━━━━━
-
+*ORDER DETAILS (BY RESTAURANT)*
 ${orderDetailsString}
 
-━━━━━━━━━━━━━━━━━━━━
-💰 *BILL SUMMARY*
-━━━━━━━━━━━━━━━━━━━━
-• *Items Subtotal:* ₹${getTotal()}
-• *Delivery Fee:* ₹${getDeliveryFee()}
-• *Grand Total:* ₹${getGrandTotal()}`;
+*BILL SUMMARY*
+• Items Subtotal: ₹${getTotal()}
+• Delivery Fee: ₹${getDeliveryFee()}
+• Grand Total: ₹${getGrandTotal()}`;
 
     const rawNumber = WHATSAPP_NUMBER.replace(/\D/g, "") || "919251030358";
     const whatsappUrl = `https://wa.me/${rawNumber}?text=${encodeURIComponent(message)}`;
