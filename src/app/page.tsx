@@ -1,69 +1,121 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Clock, Truck, IndianRupee, ShoppingBag, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { VendorCard } from "@/components/vendor/vendor-card";
+import { MOCK_VENDORS } from "@/lib/mock-data";
+import { ORDER_SLOT, DELIVERY_TIME, DELIVERY_FEE, BRAND } from "@/lib/constants";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main className="flex-1">
+      {/* ─── Hero Section ─── */}
+      <section className="relative bg-gradient-to-br from-primary/95 to-primary overflow-hidden">
+        {/* Decorative circles */}
+        <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-white/5" />
+        <div className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-white/5" />
+
+        <div className="relative mx-auto max-w-5xl px-4 py-20 sm:py-28 text-center">
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight tracking-tight">
+            Craving something delicious?
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-4 text-base sm:text-lg text-white/85 max-w-xl mx-auto leading-relaxed">
+            Order from the best restaurants, delivered to your hostel at NIT
+            Jalandhar.
           </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Button
+              render={<Link href="/vendors" />}
+              nativeButton={false}
+              size="lg"
+              className="bg-white text-primary hover:bg-white/90 font-semibold text-base px-8"
+            >
+              Browse Vendors
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* ─── Order Info Bar ─── */}
+      <section className="border-b bg-muted/50">
+        <div className="mx-auto max-w-5xl px-4 py-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+            <div className="flex items-center justify-center gap-2 text-sm">
+              <Clock className="h-4 w-4 text-primary shrink-0" />
+              <span className="text-muted-foreground">Order Slot:</span>
+              <span className="font-semibold">{ORDER_SLOT.label}</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-sm">
+              <Truck className="h-4 w-4 text-primary shrink-0" />
+              <span className="text-muted-foreground">Delivery:</span>
+              <span className="font-semibold">{DELIVERY_TIME.label}</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-sm">
+              <IndianRupee className="h-4 w-4 text-primary shrink-0" />
+              <span className="text-muted-foreground">Delivery Fee:</span>
+              <span className="font-semibold">₹{DELIVERY_FEE} flat</span>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ─── Featured Vendors ─── */}
+      <section className="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+              Featured Vendors
+            </h2>
+            <p className="mt-1 text-muted-foreground text-sm">
+              Your favourite restaurants, one tap away
+            </p>
+          </div>
+          <Button variant="ghost" render={<Link href="/vendors" />} nativeButton={false} className="hidden sm:flex gap-1">
+            View all <ArrowRight className="h-4 w-4" />
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {MOCK_VENDORS.map((vendor) => (
+            <VendorCard key={vendor.id} vendor={vendor} />
+          ))}
+        </div>
+
+        <div className="sm:hidden mt-6 text-center">
+          <Button variant="outline" render={<Link href="/vendors" />} nativeButton={false} className="gap-1">
+            View all vendors <ArrowRight className="h-4 w-4" />
+          </Button>
+        </div>
+      </section>
+
+      {/* ─── Marketplace CTA ─── */}
+      <section className="bg-muted/40 border-t">
+        <div className="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+          <div className="rounded-xl bg-gradient-to-r from-[#C4883A]/10 to-primary/10 border p-8 sm:p-10 flex flex-col sm:flex-row items-center gap-6">
+            <div className="flex-1 text-center sm:text-left">
+              <div className="inline-flex items-center gap-2 mb-3">
+                <ShoppingBag className="h-6 w-6 text-[#C4883A]" />
+                <span className="text-sm font-semibold uppercase tracking-wider text-[#C4883A]">
+                  {BRAND.name} Marketplace
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+                Browse Marketplace
+              </h2>
+              <p className="mt-2 text-muted-foreground text-sm sm:text-base max-w-md">
+                Buy &amp; sell textbooks, electronics &amp; more from fellow
+                students at NIT Jalandhar.
+              </p>
+            </div>
+            <Button
+              disabled
+              size="lg"
+              className="shrink-0 font-semibold px-8"
+            >
+              Coming Soon
+            </Button>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
