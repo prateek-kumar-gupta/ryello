@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ryello - Campus Marketplace",
-  description: "Order food, buy & sell on NIT Jalandhar campus",
+  description: "Order food, buy & sell on campus",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

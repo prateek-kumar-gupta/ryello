@@ -45,7 +45,7 @@ export default function MarketplacePage() {
             Campus Marketplace
           </h1>
           <p className="mt-0.5 text-sm text-muted-foreground">
-            Buy &amp; sell from fellow NIT Jalandhar students
+            Buy &amp; sell from fellow campus students
           </p>
 
           {/* Search */}

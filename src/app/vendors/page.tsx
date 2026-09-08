@@ -30,7 +30,7 @@ export default function VendorsPage() {
           All Vendors
         </h1>
         <p className="mt-1 text-muted-foreground text-sm">
-          Explore restaurants delivering to NIT Jalandhar campus
+          Explore restaurants delivering directly to campus
         </p>
 
         {/* Filters */}

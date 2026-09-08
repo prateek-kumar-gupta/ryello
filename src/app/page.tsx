@@ -48,7 +48,7 @@ export default function HomePage() {
           {/* Top Pill Badge */}
           <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs sm:text-sm font-medium backdrop-blur-md shadow-inner mb-6 animate-fade-in">
             <Sparkles className="size-3.5 text-amber-300 animate-pulse" />
-            <span>NIT Jalandhar&apos;s Official Campus Food Network</span>
+            <span>Your Campus Food &amp; Delivery Network</span>
           </div>
 
           <h1 className="text-3xl sm:text-6xl font-black tracking-tight leading-[1.15] text-white drop-shadow-sm">
@@ -59,7 +59,7 @@ export default function HomePage() {
           </h1>
 
           <p className="mt-4 sm:mt-6 text-base sm:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed font-normal">
-            Order directly from Jalandhar’s top restaurants. Hot meals, sweets &amp; snacks delivered right to your hostel gate.
+            Order directly from top restaurants. Hot meals, sweets &amp; snacks delivered right to your hostel gate.
           </p>
 
           {/* Action Buttons */}
@@ -149,7 +149,7 @@ export default function HomePage() {
               Featured Restaurants
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Hand-picked iconic eateries delivering to NIT Jalandhar
+              Hand-picked iconic eateries delivering to your hostel
             </p>
           </div>
           <Button
@@ -271,7 +271,7 @@ export default function HomePage() {
                 Buy &amp; Sell on Campus
               </h3>
               <p className="mt-2.5 text-muted-foreground text-sm sm:text-base max-w-lg leading-relaxed">
-                Need second-hand textbooks, scientific calculators, gym gear or room essentials? Connect directly with fellow NITJ students.
+                Need second-hand textbooks, scientific calculators, gym gear or room essentials? Connect directly with fellow students.
               </p>
             </div>
             <div className="shrink-0 flex flex-col items-center sm:items-end gap-2">

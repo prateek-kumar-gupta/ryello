@@ -200,7 +200,7 @@ export default function VendorMenuPage({
           </div>
           <div className="hidden sm:flex items-center gap-1.5 text-emerald-600 font-semibold">
             <ShieldCheck className="size-4" />
-            <span>Delivered directly to NITJ hostel</span>
+            <span>Delivered directly to your hostel</span>
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ export const DELIVERY_TIME = {
 
 export const WHATSAPP_NUMBER = "+919251030358";
 
-// NIT Jalandhar Hostels
+// Campus Hostels
 export const HOSTELS = [
   "BH 1",
   "BH 2",
@@ -64,7 +64,7 @@ export const ORDER_STATUSES = [
 export const BRAND = {
   name: "Ryello",
   tagline: "Your Campus Marketplace",
-  description: "Delivering food, essentials & more to NIT Jalandhar campus.",
+  description: "Delivering food, essentials & more right to your campus.",
   colors: {
     primary: "#0D7377",       // Teal from logo
     primaryDark: "#095557",

@@ -14,8 +14,7 @@ export function Footer() {
               {BRAND.name}
             </span>
             <p className="mt-1 text-sm text-muted-foreground">
-              © {new Date().getFullYear()} {BRAND.name}. Built for NIT Jalandhar
-              campus.
+              © {new Date().getFullYear()} {BRAND.name}. Built for students.
             </p>
           </div>
 

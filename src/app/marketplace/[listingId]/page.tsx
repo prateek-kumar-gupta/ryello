@@ -132,10 +132,10 @@ export default function ListingDetailPage({
                   <User className="size-6" />
                 </div>
                 <div className="flex-1">
-                  <p className="font-semibold">NIT Jalandhar Student</p>
+                  <p className="font-semibold">Campus Student</p>
                   <div className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
                     <MapPin className="size-3" />
-                    <span>NIT Jalandhar Campus</span>
+                    <span>Campus Delivery</span>
                   </div>
                 </div>
               </div>
