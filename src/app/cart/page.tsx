@@ -442,12 +442,12 @@ ${orderDetailsString}
         {/* Place Order Button */}
         <Button
           size="lg"
-          className="w-full text-base font-semibold bg-[#25D366] hover:bg-[#20B056] text-white gap-2"
+          className="w-full h-14 text-base font-bold bg-[#25D366] hover:bg-[#20B056] text-white gap-2.5 rounded-2xl shadow-[0_10px_25px_-5px_rgba(37,211,102,0.4)] hover:shadow-[0_16px_32px_-6px_rgba(37,211,102,0.5)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
           onClick={handlePlaceOrder}
           disabled={isPlacing}
         >
           {isPlacing ? (
-            "Redirecting..."
+            "Redirecting to WhatsApp..."
           ) : (
             <>
               <WhatsAppIcon className="size-5" />
