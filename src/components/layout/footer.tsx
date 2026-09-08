@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { BRAND, WHATSAPP_NUMBER } from "@/lib/constants";
 
 export function Footer() {
@@ -9,13 +10,29 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
           {/* Brand + copyright */}
-          <div className="text-center sm:text-left">
-            <span className="text-lg font-bold text-primary">
-              {BRAND.name}
-            </span>
-            <p className="mt-1 text-sm text-muted-foreground">
-              © {new Date().getFullYear()} {BRAND.name}. Built for students.
-            </p>
+          <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+            <div className="relative flex size-10 items-center justify-center rounded-xl bg-white p-1 shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-slate-200">
+              <Image
+                src="/ryello-logo.png"
+                alt="Ryello Logo"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </div>
+            <div>
+              <div className="flex items-center justify-center sm:justify-start gap-2">
+                <span className="text-lg font-bold text-primary">
+                  {BRAND.name}
+                </span>
+                <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
+                  Craving Delivered
+                </span>
+              </div>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                © {new Date().getFullYear()} {BRAND.name}. Built for students.
+              </p>
+            </div>
           </div>
 
           {/* Links */}

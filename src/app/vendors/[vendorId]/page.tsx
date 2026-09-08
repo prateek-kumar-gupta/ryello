@@ -270,7 +270,7 @@ export default function VendorMenuPage({
                     <div
                       key={item.id}
                       className={cn(
-                        "group relative flex flex-col sm:flex-row justify-between gap-4 p-4 sm:p-5 rounded-2xl border border-border/70 bg-card shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_-8px_rgba(0,0,0,0.08)] hover:border-primary/30 transition-all duration-300",
+                        "group relative flex flex-col sm:flex-row justify-between gap-4 p-4 sm:p-5 rounded-2xl border border-slate-200/90 bg-white/95 shadow-[0_6px_20px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_16px_32px_-8px_rgba(13,115,119,0.15)] hover:-translate-y-1 hover:border-primary/40 transition-all duration-300",
                         !item.is_available && "opacity-60"
                       )}
                     >
@@ -421,17 +421,17 @@ export default function VendorMenuPage({
       {/* ─── 3D Sticky Cart Bar ─── */}
       {showCartBar && (
         <div className="fixed bottom-4 left-4 right-4 z-50 max-w-lg mx-auto">
-          <div className="rounded-2xl border border-primary/30 bg-card/95 p-3.5 shadow-[0_12px_35px_-10px_rgba(13,115,119,0.35)] backdrop-blur-md flex items-center justify-between animate-fade-in">
+          <div className="rounded-2xl border border-primary/40 bg-white/95 p-3.5 shadow-[0_20px_45px_-10px_rgba(13,115,119,0.4),inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-xl flex items-center justify-between animate-fade-in">
             <div className="flex items-center gap-3">
-              <div className="bg-primary text-primary-foreground rounded-xl size-9 flex items-center justify-center text-sm font-black shadow-md">
+              <div className="bg-primary text-primary-foreground rounded-xl size-9 flex items-center justify-center text-sm font-black shadow-[0_2px_8px_rgba(13,115,119,0.4)]">
                 {totalCartCount}
               </div>
               <div className="text-xs sm:text-sm">
-                <span className="text-muted-foreground font-medium">
+                <span className="text-muted-foreground font-semibold">
                   {totalCartCount} {totalCartCount === 1 ? "item" : "items"} in cart
                 </span>
                 <span className="mx-2 text-muted-foreground">•</span>
-                <span className="font-extrabold text-foreground text-sm sm:text-base">
+                <span className="font-black text-foreground text-sm sm:text-base">
                   {formatPrice(totalCartTotal)}
                 </span>
               </div>
@@ -440,7 +440,7 @@ export default function VendorMenuPage({
               render={<Link href="/cart" />}
               nativeButton={false}
               size="sm"
-              className="gap-2 font-bold px-5 h-9 rounded-xl shadow-md"
+              className="gap-2 font-bold px-5 h-9 rounded-xl shadow-[0_4px_14px_rgba(13,115,119,0.35),inset_0_1px_0_rgba(255,255,255,0.4)] hover:shadow-[0_6px_18px_rgba(13,115,119,0.45)] hover:-translate-y-0.5 active:translate-y-0.5 transition-all"
             >
               View Cart <ArrowRight className="size-4" />
             </Button>

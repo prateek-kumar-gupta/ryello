@@ -45,30 +45,53 @@ export default function HomePage() {
         <div className="absolute -top-12 -right-12 size-80 rounded-full bg-amber-400/10 blur-2xl pointer-events-none" />
 
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 text-center">
-          {/* Top Pill Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs sm:text-sm font-medium backdrop-blur-md shadow-inner mb-6 animate-fade-in">
-            <Sparkles className="size-3.5 text-amber-300 animate-pulse" />
-            <span>Your Campus Food &amp; Delivery Network</span>
+          {/* 3D Floating Brand & Logo Showcase */}
+          <div className="flex justify-center mb-6">
+            <div className="relative group">
+              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-400 via-teal-300 to-amber-500 opacity-60 blur-md group-hover:opacity-100 transition duration-500 animate-pulse" />
+              <div className="relative flex items-center gap-3.5 rounded-2xl bg-white/15 backdrop-blur-xl border border-white/30 px-5 py-2.5 shadow-[0_12px_30px_-5px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.7)] transition-all duration-300 hover:scale-105 hover:bg-white/20">
+                <div className="size-11 rounded-xl bg-white p-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.18)] flex items-center justify-center">
+                  <Image
+                    src="/ryello-logo.png"
+                    alt="Ryello Logo"
+                    width={36}
+                    height={36}
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+                <div className="text-left">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl font-black tracking-tight text-white drop-shadow-sm">Ryello</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-400/20 border border-amber-300/40 px-2.5 py-0.5 text-[10px] font-bold text-amber-200 shadow-sm">
+                      <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Hostel Food Hub
+                    </span>
+                  </div>
+                  <p className="text-xs text-white/90 font-medium">Craving Delivered • Smart Hostel Orders</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <h1 className="text-3xl sm:text-6xl font-black tracking-tight leading-[1.15] text-white drop-shadow-sm">
+          <h1 className="text-3xl sm:text-6xl font-black tracking-tight leading-[1.15] text-white drop-shadow-md">
             Craving something <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-amber-200 via-orange-200 to-amber-300 bg-clip-text text-transparent">
               delicious &amp; fresh?
             </span>
           </h1>
 
-          <p className="mt-4 sm:mt-6 text-base sm:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="mt-4 sm:mt-6 text-base sm:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed font-normal drop-shadow-sm">
             Order directly from top restaurants. Hot meals, sweets &amp; snacks delivered right to your hostel gate.
           </p>
 
-          {/* Action Buttons */}
+          {/* Action Buttons with 3D tactile elevation */}
           <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-4">
             <Button
               render={<Link href="/vendors" />}
               nativeButton={false}
               size="lg"
-              className="bg-white text-primary hover:bg-white/90 font-bold text-base px-8 h-12 rounded-xl shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 transition-all"
+              className="bg-white text-primary hover:bg-white/95 font-bold text-base px-8 h-12 rounded-xl shadow-[0_12px_28px_-5px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_18px_35px_-5px_rgba(0,0,0,0.45)] hover:-translate-y-1 active:translate-y-0.5 transition-all"
             >
               Browse Restaurants
             </Button>
@@ -77,19 +100,19 @@ export default function HomePage() {
               nativeButton={false}
               variant="outline"
               size="lg"
-              className="border-white/40 bg-white/10 text-white hover:bg-white/20 font-semibold text-base px-6 h-12 rounded-xl backdrop-blur-sm"
+              className="border-white/50 bg-white/15 text-white hover:bg-white/25 font-semibold text-base px-6 h-12 rounded-xl backdrop-blur-md shadow-[0_6px_18px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.4)] hover:-translate-y-0.5 active:translate-y-0.5 transition-all"
             >
               View Popular Picks
             </Button>
           </div>
 
-          {/* Quick Category Pills */}
+          {/* Quick Category Pills with 3D buttons */}
           <div className="mt-12 flex flex-wrap items-center justify-center gap-2.5 max-w-3xl mx-auto">
             {QUICK_CATEGORIES.map((cat) => (
               <Link
                 key={cat.label}
                 href={`/vendors/${cat.vendorId}`}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-white/90 backdrop-blur-md transition-all hover:bg-white/25 hover:border-white/40 hover:scale-105"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/15 px-4 py-2 text-xs sm:text-sm font-medium text-white backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all hover:bg-white/30 hover:border-white/50 hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(0,0,0,0.25)]"
               >
                 <span>{cat.emoji}</span>
                 <span>{cat.label}</span>
@@ -105,33 +128,33 @@ export default function HomePage() {
       {/* ─── 3D Order Info Cards ─── */}
       <section className="relative -mt-6 sm:-mt-10 mx-auto max-w-5xl px-4 z-10">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="flex items-center gap-3.5 rounded-2xl border border-border/60 bg-card/95 p-4 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.08)] backdrop-blur-md transition-transform hover:-translate-y-0.5">
-            <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary shadow-inner">
+          <div className="group flex items-center gap-3.5 rounded-2xl border border-slate-200/90 bg-white/95 p-4.5 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-md transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_16px_35px_-6px_rgba(13,115,119,0.18)] hover:border-primary/30">
+            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] border border-primary/20 group-hover:scale-105 transition-transform">
               <Clock className="size-5" />
             </div>
             <div>
-              <p className="text-xs text-muted-foreground font-medium">Daily Order Slot</p>
-              <p className="text-sm font-bold text-foreground">{ORDER_SLOT.label}</p>
+              <p className="text-xs text-muted-foreground font-semibold">Daily Order Slot</p>
+              <p className="text-sm font-black text-foreground">{ORDER_SLOT.label}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3.5 rounded-2xl border border-border/60 bg-card/95 p-4 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.08)] backdrop-blur-md transition-transform hover:-translate-y-0.5">
-            <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 shadow-inner">
+          <div className="group flex items-center gap-3.5 rounded-2xl border border-slate-200/90 bg-white/95 p-4.5 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-md transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_16px_35px_-6px_rgba(196,136,58,0.22)] hover:border-amber-500/30">
+            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] border border-amber-500/20 group-hover:scale-105 transition-transform">
               <Truck className="size-5" />
             </div>
             <div>
-              <p className="text-xs text-muted-foreground font-medium">Evening Hostel Delivery</p>
-              <p className="text-sm font-bold text-foreground">{DELIVERY_TIME.label}</p>
+              <p className="text-xs text-muted-foreground font-semibold">Evening Hostel Delivery</p>
+              <p className="text-sm font-black text-foreground">{DELIVERY_TIME.label}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3.5 rounded-2xl border border-border/60 bg-card/95 p-4 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.08)] backdrop-blur-md transition-transform hover:-translate-y-0.5">
-            <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 shadow-inner">
+          <div className="group flex items-center gap-3.5 rounded-2xl border border-slate-200/90 bg-white/95 p-4.5 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-md transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_16px_35px_-6px_rgba(16,185,129,0.22)] hover:border-emerald-500/30">
+            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] border border-emerald-500/20 group-hover:scale-105 transition-transform">
               <IndianRupee className="size-5" />
             </div>
             <div>
-              <p className="text-xs text-muted-foreground font-medium">Affordable Pricing</p>
-              <p className="text-sm font-bold text-foreground">₹{DELIVERY_FEE} Flat Fee to Room</p>
+              <p className="text-xs text-muted-foreground font-semibold">Affordable Pricing</p>
+              <p className="text-sm font-black text-foreground">₹{DELIVERY_FEE} Flat Fee to Room</p>
             </div>
           </div>
         </div>
