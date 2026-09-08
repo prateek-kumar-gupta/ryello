@@ -63,20 +63,6 @@ export default function CartPage() {
   const [roomNumber, setRoomNumber] = useState("");
   const [notes, setNotes] = useState("");
   const [isPlacing, setIsPlacing] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-    setIsOpen(isOrderSlotOpen(ORDER_SLOT.start, ORDER_SLOT.end));
-    
-    // Check every minute
-    const interval = setInterval(() => {
-      setIsOpen(isOrderSlotOpen(ORDER_SLOT.start, ORDER_SLOT.end));
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
-
   const vendorName = items.length > 0 ? items[0].vendor.name : "";
 
   function handlePlaceOrder() {
@@ -399,45 +385,21 @@ ${orderItemsString}
         </Card>
 
         {/* Place Order Button */}
-        {isOpen ? (
-          <Button
-            size="lg"
-            className="w-full text-base font-semibold bg-[#25D366] hover:bg-[#20B056] text-white gap-2"
-            onClick={handlePlaceOrder}
-            disabled={isPlacing}
-          >
-            {isPlacing ? (
-              "Redirecting..."
-            ) : (
-              <>
-                <WhatsAppIcon className="size-5" />
-                Order on WhatsApp — {formatPrice(getGrandTotal())}
-              </>
-            )}
-          </Button>
-        ) : (
-          <div className="space-y-3">
-            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-800 text-center border border-red-200">
-              <span className="font-semibold block mb-1">Order Slot is currently closed.</span>
-              You can still chat with us directly to check if we can process your order.
-            </div>
-            <Button
-              render={
-                <a 
-                  href={`https://wa.me/919251030358?text=${encodeURIComponent("Hi Ryello, I know the ordering slot is currently closed, but I was hoping to place an order. Is that possible?")}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                />
-              }
-              nativeButton={false}
-              size="lg"
-              className="w-full text-base font-semibold bg-gray-600 hover:bg-gray-700 text-white gap-2"
-            >
+        <Button
+          size="lg"
+          className="w-full text-base font-semibold bg-[#25D366] hover:bg-[#20B056] text-white gap-2"
+          onClick={handlePlaceOrder}
+          disabled={isPlacing}
+        >
+          {isPlacing ? (
+            "Redirecting..."
+          ) : (
+            <>
               <WhatsAppIcon className="size-5" />
-              Chat on WhatsApp to Order
-            </Button>
-          </div>
-        )}
+              Order on WhatsApp — {formatPrice(getGrandTotal())}
+            </>
+          )}
+        </Button>
 
         <p className="mt-3 text-center text-xs text-muted-foreground">
           You will be redirected to WhatsApp to confirm and send your order.

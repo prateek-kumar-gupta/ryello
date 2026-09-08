@@ -43,17 +43,6 @@ export default function VendorMenuPage({
   const getItemCount = useCartStore((s) => s.getItemCount);
   const getVendorId = useCartStore((s) => s.getVendorId);
 
-  const [slotOpen, setSlotOpen] = useState(true);
-
-  useEffect(() => {
-    const checkSlot = () => {
-      setSlotOpen(isOrderSlotOpen(vendor?.order_slot_start, vendor?.order_slot_end));
-    };
-    checkSlot();
-    const interval = setInterval(checkSlot, 60000);
-    return () => clearInterval(interval);
-  }, [vendor?.order_slot_start, vendor?.order_slot_end]);
-
   // Categories for this vendor, sorted
   const categories = useMemo(
     () =>
@@ -201,17 +190,6 @@ export default function VendorMenuPage({
             <span className="text-muted-foreground">Delivery:</span>
             <span className="font-medium">{DELIVERY_TIME.label}</span>
           </div>
-          <Badge
-            variant={slotOpen ? "default" : "secondary"}
-            className={cn(
-              "ml-auto text-xs",
-              slotOpen
-                ? "bg-green-100 text-green-700 hover:bg-green-100"
-                : "bg-red-100 text-red-700 hover:bg-red-100"
-            )}
-          >
-            {slotOpen ? "🟢 Slot Open" : "🔴 Slot Closed"}
-          </Badge>
         </div>
       </div>
 
@@ -315,7 +293,7 @@ export default function VendorMenuPage({
                           {formatPrice(displayPrice)}
                         </span>
 
-                        {item.is_available && slotOpen ? (
+                        {item.is_available ? (
                           qtyInCart > 0 ? (
                             <div className="flex items-center gap-1">
                               <Button
@@ -358,11 +336,8 @@ export default function VendorMenuPage({
                             </Button>
                           )
                         ) : (
-                          <span className={cn(
-                            "text-xs font-medium",
-                            !slotOpen ? "text-red-500" : "text-muted-foreground"
-                          )}>
-                            {!slotOpen ? "Slot Closed" : "Unavailable"}
+                          <span className="text-xs text-muted-foreground">
+                            Unavailable
                           </span>
                         )}
                       </div>
