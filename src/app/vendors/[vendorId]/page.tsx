@@ -79,17 +79,12 @@ export default function VendorMenuPage({
     );
   }
 
-  const cartVendorId = getVendorId();
+  const totalCartCount = getItemCount();
+  const totalCartTotal = getTotal();
   const vendorCartCount = cartItems
     .filter((ci) => ci.vendor.id === vendorId)
     .reduce((sum, ci) => sum + ci.quantity, 0);
-  const vendorCartTotal = cartItems
-    .filter((ci) => ci.vendor.id === vendorId)
-    .reduce(
-      (sum, ci) => sum + (ci.variant?.price || ci.menu_item.price) * ci.quantity,
-      0
-    );
-  const showCartBar = cartVendorId === vendorId && vendorCartCount > 0;
+  const showCartBar = totalCartCount > 0;
 
   function handleSelectVariant(menuItemId: string, variantName: string) {
     setVariantSelections((prev) => ({ ...prev, [menuItemId]: variantName }));
@@ -357,15 +352,15 @@ export default function VendorMenuPage({
           <div className="mx-auto max-w-3xl px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center text-sm font-bold">
-                {vendorCartCount}
+                {totalCartCount}
               </div>
               <div className="text-sm">
                 <span className="text-muted-foreground">
-                  {vendorCartCount} {vendorCartCount === 1 ? "item" : "items"}
+                  {totalCartCount} {totalCartCount === 1 ? "item" : "items"}
                 </span>
                 <span className="mx-2 text-muted-foreground">•</span>
                 <span className="font-semibold">
-                  {formatPrice(vendorCartTotal)}
+                  {formatPrice(totalCartTotal)}
                 </span>
               </div>
             </div>

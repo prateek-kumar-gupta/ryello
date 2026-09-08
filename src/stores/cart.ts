@@ -13,12 +13,6 @@ export const useCartStore = create<CartState>()(
       addItem: (item: MenuItem, vendor: Vendor, variant?: MenuItemVariant | null) => {
         const { items } = get();
 
-        // Check if adding from a different vendor
-        if (items.length > 0 && items[0].vendor.id !== vendor.id) {
-          // Clear cart if switching vendor
-          set({ items: [] });
-        }
-
         const existingIndex = items.findIndex(
           (ci) =>
             ci.menu_item.id === item.id &&

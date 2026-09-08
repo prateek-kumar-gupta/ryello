@@ -17,8 +17,9 @@ import {
 } from "lucide-react";
 import { useCartStore } from "@/stores/cart";
 import { formatPrice, isOrderSlotOpen } from "@/lib/utils";
-import { ORDER_SLOT, DELIVERY_TIME, HOSTELS } from "@/lib/constants";
+import { ORDER_SLOT, DELIVERY_TIME, HOSTELS, WHATSAPP_NUMBER } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -63,7 +64,20 @@ export default function CartPage() {
   const [roomNumber, setRoomNumber] = useState("");
   const [notes, setNotes] = useState("");
   const [isPlacing, setIsPlacing] = useState(false);
-  const vendorName = items.length > 0 ? items[0].vendor.name : "";
+  // Group cart items by vendor
+  const itemsByVendor = items.reduce((acc, item) => {
+    const vId = item.vendor.id;
+    if (!acc[vId]) {
+      acc[vId] = {
+        vendor: item.vendor,
+        items: [],
+      };
+    }
+    acc[vId].items.push(item);
+    return acc;
+  }, {} as Record<string, { vendor: (typeof items)[0]["vendor"]; items: typeof items }>);
+
+  const vendorGroups = Object.values(itemsByVendor);
 
   function handlePlaceOrder() {
     if (!name.trim()) {
@@ -85,31 +99,48 @@ export default function CartPage() {
 
     setIsPlacing(true);
 
-    const orderItemsString = items
-      .map((item) => {
-        const itemPrice = item.variant?.price ?? item.menu_item.price;
-        const variantText = item.variant ? ` (${item.variant.name})` : "";
-        const unitText = item.menu_item.unit ? ` (${item.menu_item.unit})` : "";
-        return `- ${item.quantity}x ${item.menu_item.name}${variantText}${unitText} = ₹${itemPrice * item.quantity}`;
+    // Format partitioned order details for WhatsApp
+    const orderDetailsString = vendorGroups
+      .map(({ vendor, items: vItems }) => {
+        const vendorSubtotal = vItems.reduce(
+          (sum, item) => sum + (item.variant?.price ?? item.menu_item.price) * item.quantity,
+          0
+        );
+
+        const itemsList = vItems
+          .map((item) => {
+            const itemPrice = item.variant?.price ?? item.menu_item.price;
+            const variantText = item.variant ? ` (${item.variant.name})` : "";
+            const unitText = item.menu_item.unit ? ` (${item.menu_item.unit})` : "";
+            return `• ${item.quantity}x ${item.menu_item.name}${variantText}${unitText} = ₹${itemPrice * item.quantity}`;
+          })
+          .join("\n");
+
+        return `🏪 *${vendor.name}*\n${itemsList}\n_Subtotal: ₹${vendorSubtotal}_`;
       })
-      .join("\n");
+      .join("\n\n────────────────────\n\n");
 
     const message = `Hello Ryello! Here is my order:
 
 • *Name:* ${name.trim()}
 • *Phone:* ${phone.trim()}
-• *Address:* ${hostel}, Room ${roomNumber.trim()}
-${notes.trim() ? `• *Notes:* ${notes.trim()}\n` : ""}
-• *Vendor:* ${vendorName}
+• *Address:* ${hostel}, Room ${roomNumber.trim()}${notes.trim() ? `\n• *Special Instructions:* ${notes.trim()}` : ""}
 
-• *Order Details:*
-${orderItemsString}
+━━━━━━━━━━━━━━━━━━━━
+🍽️ *ORDER DETAILS (BY RESTAURANT)*
+━━━━━━━━━━━━━━━━━━━━
 
-*Subtotal:* ₹${getTotal()}
-*Delivery:* ₹${getDeliveryFee()}
-*Total:* ₹${getGrandTotal()}`;
+${orderDetailsString}
 
-    const whatsappUrl = `https://wa.me/919251030358?text=${encodeURIComponent(message)}`;
+━━━━━━━━━━━━━━━━━━━━
+💰 *BILL SUMMARY*
+━━━━━━━━━━━━━━━━━━━━
+• *Items Subtotal:* ₹${getTotal()}
+• *Delivery Fee:* ₹${getDeliveryFee()}
+• *Grand Total:* ₹${getGrandTotal()}`;
+
+    const rawNumber = WHATSAPP_NUMBER.replace(/\D/g, "") || "919251030358";
+    const whatsappUrl = `https://wa.me/${rawNumber}?text=${encodeURIComponent(message)}`;
     
     // Open WhatsApp
     window.open(whatsappUrl, '_blank');
@@ -118,8 +149,6 @@ ${orderItemsString}
       description: "Send the pre-filled message to confirm your order!"
     });
     
-    // Don't clear cart immediately in case they want to come back and modify
-    // They can clear it manually later or it clears on next vendor selection
     setTimeout(() => {
       setIsPlacing(false);
     }, 1000);
@@ -183,92 +212,118 @@ ${orderItemsString}
           </div>
         </div>
 
-        {/* Vendor Name */}
-        <p className="mb-3 text-sm font-medium text-muted-foreground">
-          Ordering from{" "}
-          <span className="font-semibold text-foreground">{vendorName}</span>
-        </p>
+        {/* Cart Items Grouped by Restaurant */}
+        <div className="mb-6 space-y-4">
+          {vendorGroups.map(({ vendor, items: vendorItems }) => {
+            const vendorSubtotal = vendorItems.reduce(
+              (sum, item) =>
+                sum +
+                (item.variant?.price ?? item.menu_item.price) * item.quantity,
+              0
+            );
+            const vendorCount = vendorItems.reduce(
+              (sum, item) => sum + item.quantity,
+              0
+            );
 
-        {/* Cart Items */}
-        <Card className="mb-6">
-          <CardContent className="divide-y p-0">
-            {items.map((item) => {
-              const itemPrice = item.variant?.price ?? item.menu_item.price;
-              const itemKey = `${item.menu_item.id}-${item.variant?.name ?? "default"}`;
-
-              return (
-                <div key={itemKey} className="flex items-start gap-3 p-4">
-                  {/* Veg/Non-veg Indicator */}
-                  <span className="mt-1 text-sm leading-none">
-                    {item.menu_item.is_veg ? "🟢" : "🔴"}
-                  </span>
-
-                  {/* Item Details */}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sm leading-tight">
-                      {item.menu_item.name}
-                    </p>
-                    {item.variant && (
-                      <p className="mt-0.5 text-xs text-muted-foreground">
-                        {item.variant.name}
-                      </p>
-                    )}
-                    {item.menu_item.unit && (
-                      <p className="mt-0.5 text-xs text-muted-foreground">
-                        {item.menu_item.unit}
-                      </p>
-                    )}
-                    <p className="mt-1 text-sm font-semibold text-primary">
-                      {formatPrice(itemPrice)}
-                    </p>
-                  </div>
-
-                  {/* Quantity Controls */}
-                  <div className="flex items-center gap-0">
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          item.menu_item.id,
-                          item.quantity - 1,
-                          item.variant?.name
-                        )
-                      }
-                      className="flex size-8 items-center justify-center rounded-l-lg border border-gray-300 bg-white text-gray-600 hover:bg-gray-50 active:bg-gray-100"
-                    >
-                      <Minus className="size-3.5" />
-                    </button>
-                    <span className="flex h-8 min-w-[32px] items-center justify-center border-y border-gray-300 bg-white px-2 text-sm font-semibold">
-                      {item.quantity}
+            return (
+              <Card key={vendor.id} className="overflow-hidden">
+                <div className="flex items-center justify-between border-b bg-muted/60 px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-foreground sm:text-base">
+                      🏪 {vendor.name}
                     </span>
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          item.menu_item.id,
-                          item.quantity + 1,
-                          item.variant?.name
-                        )
-                      }
-                      className="flex size-8 items-center justify-center rounded-r-lg border border-gray-300 bg-white text-gray-600 hover:bg-gray-50 active:bg-gray-100"
-                    >
-                      <Plus className="size-3.5" />
-                    </button>
+                    <Badge variant="secondary" className="text-xs">
+                      {vendorCount} {vendorCount === 1 ? "item" : "items"}
+                    </Badge>
                   </div>
-
-                  {/* Remove */}
-                  <button
-                    onClick={() =>
-                      removeItem(item.menu_item.id, item.variant?.name)
-                    }
-                    className="mt-1 p-1 text-gray-400 hover:text-red-500"
-                    aria-label="Remove item"
-                  >
-                    <Trash2 className="size-4" />
-                  </button>
+                  <span className="text-xs font-semibold text-primary sm:text-sm">
+                    {formatPrice(vendorSubtotal)}
+                  </span>
                 </div>
-              );
-            })}
-          </CardContent>
-        </Card>
+
+                <CardContent className="divide-y p-0">
+                  {vendorItems.map((item) => {
+                    const itemPrice =
+                      item.variant?.price ?? item.menu_item.price;
+                    const itemKey = `${item.menu_item.id}-${item.variant?.name ?? "default"}`;
+
+                    return (
+                      <div key={itemKey} className="flex items-start gap-3 p-4">
+                        {/* Veg/Non-veg Indicator */}
+                        <span className="mt-1 text-sm leading-none">
+                          {item.menu_item.is_veg ? "🟢" : "🔴"}
+                        </span>
+
+                        {/* Item Details */}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm leading-tight">
+                            {item.menu_item.name}
+                          </p>
+                          {item.variant && (
+                            <p className="mt-0.5 text-xs text-muted-foreground">
+                              {item.variant.name}
+                            </p>
+                          )}
+                          {item.menu_item.unit && (
+                            <p className="mt-0.5 text-xs text-muted-foreground">
+                              {item.menu_item.unit}
+                            </p>
+                          )}
+                          <p className="mt-1 text-sm font-semibold text-primary">
+                            {formatPrice(itemPrice)}
+                          </p>
+                        </div>
+
+                        {/* Quantity Controls */}
+                        <div className="flex items-center gap-0">
+                          <button
+                            onClick={() =>
+                              updateQuantity(
+                                item.menu_item.id,
+                                item.quantity - 1,
+                                item.variant?.name
+                              )
+                            }
+                            className="flex size-8 items-center justify-center rounded-l-lg border border-gray-300 bg-white text-gray-600 hover:bg-gray-50 active:bg-gray-100"
+                          >
+                            <Minus className="size-3.5" />
+                          </button>
+                          <span className="flex h-8 min-w-[32px] items-center justify-center border-y border-gray-300 bg-white px-2 text-sm font-semibold">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() =>
+                              updateQuantity(
+                                item.menu_item.id,
+                                item.quantity + 1,
+                                item.variant?.name
+                              )
+                            }
+                            className="flex size-8 items-center justify-center rounded-r-lg border border-gray-300 bg-white text-gray-600 hover:bg-gray-50 active:bg-gray-100"
+                          >
+                            <Plus className="size-3.5" />
+                          </button>
+                        </div>
+
+                        {/* Remove */}
+                        <button
+                          onClick={() =>
+                            removeItem(item.menu_item.id, item.variant?.name)
+                          }
+                          className="mt-1 p-1 text-gray-400 hover:text-red-500"
+                          aria-label="Remove item"
+                        >
+                          <Trash2 className="size-4" />
+                        </button>
+                      </div>
+                    );
+                  })}
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
 
         {/* Order Summary */}
         <Card className="mb-6">
