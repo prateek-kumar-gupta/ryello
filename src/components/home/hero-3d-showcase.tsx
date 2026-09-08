@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -13,9 +13,9 @@ const SHOWCASE_DISHES = [
     name: "Dum Chicken Biryani",
     vendor: "Shahi Daawat Dhaba",
     vendorId: "v3",
-    price: "₹210",
+    price: "₹150",
     isVeg: false,
-    image: "/menu/shahi-daawat/chicken-biryani.jpg",
+    image: "/menu/shahi-daawat/chicken_biryani.jpg",
     tag: "Most Ordered",
     rating: "4.8",
     prep: "Dum Handi Slow-Cooked",
@@ -25,21 +25,21 @@ const SHOWCASE_DISHES = [
     name: "Desi Ghee Gulab Jamun",
     vendor: "Super Cremica Sweets",
     vendorId: "v1",
-    price: "₹440/kg",
+    price: "₹189",
     isVeg: true,
-    image: "/menu/super-cremica/gulab-jamun.jpg",
+    image: "/menu/super-cremica/m2_desi_jamun.jpg",
     tag: "Pure Desi Ghee",
     rating: "4.9",
-    prep: "Mawa & Desi Ghee",
+    prep: "Mawa & Pure Desi Ghee",
   },
   {
     id: "m10",
     name: "Chilly Paneer Dry",
-    vendor: "Super Cremica Sweets",
-    vendorId: "v1",
-    price: "₹320",
+    vendor: "Bikanervala",
+    vendorId: "v2",
+    price: "₹304",
     isVeg: true,
-    image: "/menu/super-cremica/chilly-paneer.jpg",
+    image: "/menu/bikanervala/chilly_paneer.jpg",
     tag: "Chef Special",
     rating: "4.9",
     prep: "Wok-Tossed Cottage Cheese",
@@ -49,21 +49,21 @@ const SHOWCASE_DISHES = [
     name: "Chole Bhature",
     vendor: "Bikanervala",
     vendorId: "v2",
-    price: "₹150",
+    price: "₹199",
     isVeg: true,
-    image: "/menu/bikanervala/chole-bhature.jpg",
+    image: "/menu/bikanervala/chole_bhature.jpg",
     tag: "Campus Classic",
     rating: "4.7",
     prep: "Pindi Chole & Fluffy Bhature",
   },
   {
-    id: "m12",
+    id: "m14",
     name: "Veg Steamed Momos",
     vendor: "Bikanervala",
     vendorId: "v2",
-    price: "₹160",
+    price: "₹134",
     isVeg: true,
-    image: "/menu/bikanervala/veg-momos.jpg",
+    image: "/menu/bikanervala/veg_momos.jpg",
     tag: "Evening Snack",
     rating: "4.6",
     prep: "Handcrafted Dimsums",
@@ -132,6 +132,7 @@ export function Hero3DShowcase() {
               alt={activeDish.name}
               fill
               priority
+              unoptimized
               sizes="(max-width: 640px) 100vw, 400px"
               className="object-cover transition-all duration-700 ease-out group-hover:scale-108 animate-fade-in"
             />

@@ -351,6 +351,7 @@ export default function VendorMenuPage({
                               src={item.image_url}
                               alt={item.name}
                               fill
+                              unoptimized
                               sizes="(max-width: 640px) 112px, 128px"
                               className="object-cover transition-transform duration-500 hover:scale-105"
                             />

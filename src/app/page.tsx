@@ -243,6 +243,7 @@ export default function HomePage() {
                             src={dish.image_url}
                             alt={dish.name}
                             fill
+                            unoptimized
                             sizes="(max-width: 768px) 100vw, 25vw"
                             className="object-cover transition-transform duration-500 group-hover:scale-108"
                           />
