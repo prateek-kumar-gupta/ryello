@@ -361,11 +361,11 @@ export default function VendorMenuPage({
                           )}
                         </div>
 
-                        {/* Floating 3D Action Button */}
-                        <div className="absolute -bottom-3 shadow-[0_6px_16px_rgba(0,0,0,0.15)] rounded-xl bg-white border border-primary/20 overflow-hidden">
+                        {/* Floating 3D Action Button with Tactile Pop */}
+                        <div className="absolute -bottom-3 shadow-[0_8px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_12px_24px_rgba(13,115,119,0.25)] rounded-xl bg-white border border-primary/25 overflow-hidden transition-all duration-200">
                           {item.is_available ? (
                             qtyInCart > 0 ? (
-                              <div className="flex items-center h-8 px-1 bg-white">
+                              <div className="flex items-center h-8.5 px-1 bg-white">
                                 <button
                                   onClick={() =>
                                     useCartStore
@@ -376,7 +376,7 @@ export default function VendorMenuPage({
                                         selectedVariantName
                                       )
                                   }
-                                  className="size-7 flex items-center justify-center text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                                  className="size-7 flex items-center justify-center text-primary hover:bg-primary/10 active:scale-90 rounded-lg transition-transform"
                                   aria-label="Decrease quantity"
                                 >
                                   <Minus className="size-3.5 stroke-[2.5]" />
@@ -386,7 +386,7 @@ export default function VendorMenuPage({
                                 </span>
                                 <button
                                   onClick={() => handleAddItem(item)}
-                                  className="size-7 flex items-center justify-center text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                                  className="size-7 flex items-center justify-center text-primary hover:bg-primary/10 active:scale-90 rounded-lg transition-transform"
                                   aria-label="Increase quantity"
                                 >
                                   <Plus className="size-3.5 stroke-[2.5]" />
@@ -395,14 +395,14 @@ export default function VendorMenuPage({
                             ) : (
                               <button
                                 onClick={() => handleAddItem(item)}
-                                className="h-8 px-5 flex items-center gap-1 font-extrabold text-xs sm:text-sm text-primary hover:bg-primary/5 active:bg-primary/10 transition-colors tracking-wide"
+                                className="h-8.5 px-5 flex items-center gap-1 font-black text-xs sm:text-sm text-primary hover:bg-primary/5 active:scale-95 transition-all tracking-wide"
                               >
                                 <Plus className="size-3.5 stroke-[2.5]" />
                                 ADD
                               </button>
                             )
                           ) : (
-                            <span className="h-8 px-3 flex items-center text-[11px] font-medium text-muted-foreground bg-muted/90">
+                            <span className="h-8.5 px-3 flex items-center text-[11px] font-medium text-muted-foreground bg-muted/90">
                               Sold Out
                             </span>
                           )}

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Star, Clock, Truck, ArrowUpRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { TiltCard } from "@/components/ui/tilt-card";
 import type { Vendor } from "@/types";
 
 interface VendorCardProps {
@@ -12,7 +13,8 @@ interface VendorCardProps {
 export function VendorCard({ vendor }: VendorCardProps) {
   return (
     <Link href={`/vendors/${vendor.id}`} className="block h-full">
-      <Card className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white/95 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_22px_45px_-10px_rgba(13,115,119,0.25)] hover:-translate-y-2 hover:border-primary/40 transition-all duration-300 backdrop-blur-sm">
+      <TiltCard maxTilt={7} scaleOnHover={1.02} className="h-full">
+        <Card className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white/95 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_22px_45px_-10px_rgba(13,115,119,0.25)] hover:border-primary/40 transition-all duration-300 backdrop-blur-sm">
         {/* Real Cover Image Container */}
         <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-muted">
           {vendor.image_url ? (
@@ -94,6 +96,7 @@ export function VendorCard({ vendor }: VendorCardProps) {
           </div>
         </CardContent>
       </Card>
+      </TiltCard>
     </Link>
   );
 }
