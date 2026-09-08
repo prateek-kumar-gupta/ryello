@@ -45,32 +45,22 @@ export default function HomePage() {
         <div className="absolute -top-12 -right-12 size-80 rounded-full bg-amber-400/10 blur-2xl pointer-events-none" />
 
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 text-center">
-          {/* 3D Floating Brand & Logo Showcase */}
+          {/* 3D Floating Pure Emblem Badge */}
           <div className="flex justify-center mb-6">
-            <div className="relative group">
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-400 via-teal-300 to-amber-500 opacity-60 blur-md group-hover:opacity-100 transition duration-500 animate-pulse" />
-              <div className="relative flex items-center gap-3.5 rounded-2xl bg-white/15 backdrop-blur-xl border border-white/30 px-5 py-2.5 shadow-[0_12px_30px_-5px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.7)] transition-all duration-300 hover:scale-105 hover:bg-white/20">
-                <div className="size-11 rounded-xl bg-white p-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.18)] flex items-center justify-center">
-                  <Image
-                    src="/ryello-logo.png"
-                    alt="Ryello Logo"
-                    width={36}
-                    height={36}
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-                <div className="text-left">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl font-black tracking-tight text-white drop-shadow-sm">Ryello</span>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-400/20 border border-amber-300/40 px-2.5 py-0.5 text-[10px] font-bold text-amber-200 shadow-sm">
-                      <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      Hostel Food Hub
-                    </span>
-                  </div>
-                  <p className="text-xs text-white/90 font-medium">Craving Delivered • Smart Hostel Orders</p>
-                </div>
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-5 py-2 backdrop-blur-md shadow-[0_8px_25px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.4)] transition-transform duration-300 hover:scale-105">
+              <div className="relative size-7 shrink-0 flex items-center justify-center">
+                <Image
+                  src="/ryello-logo.png"
+                  alt="Ryello"
+                  width={28}
+                  height={36}
+                  className="object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
+                  priority
+                />
               </div>
+              <span className="text-xl font-black tracking-tight text-white drop-shadow-sm">
+                Ryello
+              </span>
             </div>
           </div>
 

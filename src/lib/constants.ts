@@ -63,8 +63,7 @@ export const ORDER_STATUSES = [
 
 export const BRAND = {
   name: "Ryello",
-  tagline: "Craving Delivered • Hostel Food Hub",
-  subTagline: "Hostel Food Hub",
+  tagline: "Craving Delivered",
   description: "Delivering your favorite meals, snacks & essentials right to your hostel room.",
   colors: {
     primary: "#0D7377",       // Teal from logo
